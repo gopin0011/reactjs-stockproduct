@@ -16,7 +16,7 @@ const ChartJs = lazy(() => import('./charts/ChartJs'))
 
 const BasicTable = lazy(() => import('./tables/BasicTable'))
 
-
+const Products = lazy(() => import('./products/Products'))
 
 export class AppRoutes extends Component {
   render() {
@@ -41,6 +41,7 @@ export class AppRoutes extends Component {
 
           <Route exact path="/tables/basic-table" component={ BasicTable } />
 
+          <Route exact path="/products" component={ Products } />
         </Switch>
       </Suspense>
     )

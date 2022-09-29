@@ -404,7 +404,7 @@ export class Dashboard extends Component {
   render() {
     return (
       <div>
-        <div className="proBanner">
+        {/* <div className="proBanner">
           <div>
             <span className="d-flex align-items-center purchase-popup">
               <p className="m-0">Get tons of UI components, Plugins, multiple layouts, 20+ sample pages, and more!</p>
@@ -412,7 +412,7 @@ export class Dashboard extends Component {
               <i className="typcn typcn-delete-outline bannerClose" onClick={this.toggleProBanner}></i>
             </span>
           </div>
-        </div>
+        </div> */}
         <div className="container p-md-0">
           <div className="az-content-body">
             <div className="az-dashboard-one-title">

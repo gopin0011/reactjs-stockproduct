@@ -197,6 +197,17 @@ export class Header extends Component {
                     </Dropdown.Menu>
                   </Dropdown>
                 </li>
+                <li
+                  className={
+                    this.isPathActive("/products")
+                      ? "nav-item active"
+                      : "nav-item"
+                  }
+                >
+                  <Link to="/products" className="nav-link">
+                    <i className="typcn typcn-book"></i> Products
+                  </Link>
+                </li>
               </ul>
             </div>
             <div className="az-header-right">

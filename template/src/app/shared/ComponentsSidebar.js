@@ -27,6 +27,9 @@ export class ComponentsSidebar extends Component {
             <label>Tables</label>
             <nav className="nav flex-column">
               <Link to="/tables/basic-table" className={ this.isPathActive('/tables/basic-table') ? "nav-link active" : "nav-link" }>Basic Tables</Link>
+              <Link to="/ui-elements/buttons" className={ this.isPathActive('/ui-elements/buttons') ? "nav-link active" : "nav-link" }>Buttons</Link>
+              <Link to="/ui-elements/dropdowns" className={ this.isPathActive('/ui-elements/dropdowns') ? "nav-link active" : "nav-link" }>Dropdown</Link>
+              <Link to="/ui-elements/icons" className={ this.isPathActive('/ui-elements/icons') ? "nav-link active" : "nav-link" }>Icons</Link>
             </nav>
           </div>{/* component-item */}
 

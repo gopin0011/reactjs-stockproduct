@@ -23,14 +23,6 @@ export class Products extends Component {
                 count: 0,
                 openModal : false,
                 product: {},
-                tableData: [{
-                    id: '',
-                    email: '',
-                    password: '',
-                    // modalDialog: false,
-                    // modalWithoutAnimation: false,
-
-                }],
             };
         }
 
@@ -41,7 +33,7 @@ export class Products extends Component {
 
         onClickButton = (event, product) => { 
             event.preventDefault()
-            console.log(product);
+            // console.log(product);
             this.setState({openModal : true, product});
         }
 
@@ -74,7 +66,7 @@ export class Products extends Component {
         retrieveProducts() {
             const { searchTitle, page } = this.state;
             const params = this.getRequestParams(searchTitle, page);
-            ProductsDataService.getAll(params)
+            ProductsDataService.gets(params)
             .then((response) => {
                 const { products, totalPages } = response.data.data;
                 this.setState({
@@ -182,7 +174,7 @@ export class Products extends Component {
                     </div>{/* container */}  
 
                     <Modal open={this.state.openModal} onClose={this.onCloseModal}>
-                        <ProductForm product={this.state.product} />
+                        <ProductForm product={this.state.product} editMode={true} />
                     </Modal>
 
                 </div>

@@ -6,6 +6,7 @@ import ProductsDataService from "../../services/products.service";
 import Pagination from "@material-ui/lab/Pagination";
 import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
+import "../../assets/styles/style.css";
 import ProductForm from '../form/ProductForm';
 
 export class Products extends Component {
@@ -173,7 +174,14 @@ export class Products extends Component {
                         </div>{/* az-content-body */}
                     </div>{/* container */}  
 
-                    <Modal open={this.state.openModal} onClose={this.onCloseModal}>
+                    <Modal 
+                        open={this.state.openModal} 
+                        onClose={this.onCloseModal} 
+                        classNames={{
+                            overlay: 'Overlay',
+                            modal: 'Modal',
+                        }}
+                    >
                         <ProductForm product={this.state.product} editMode={true} />
                     </Modal>
 

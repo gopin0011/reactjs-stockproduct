@@ -24,11 +24,23 @@ class ProductForm extends React.Component {
             base_price: this.props.product.id ? this.props.product.base_price : '0',
             publish_price: this.props.product.id ? this.props.product.publish_price : '0',
             photo: this.props.product.id ? baseURL+this.props.product.photos : null,
-        }
+        },
+        selectedImages: [],
       };
   
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    onSelectFile = (event) => {
+        const selectedFiles = event.target.files;
+        const selectedFilesArray = Array.from(selectedFiles);
+
+        const imagesArray = selectedFilesArray.map((file) => {
+            return URL.createObjectURL(file);
+        })
+        
+        this.setState(prevState => ({ selectedImages: prevState.selectedImages.concat(imagesArray) }))
     }
 
     handleChange = (e) => {
@@ -41,11 +53,11 @@ class ProductForm extends React.Component {
           console.log(this.state.product);
     }
 
-    handleValueChange = (target, value) => {
+    handleValueChange = (value, sourceInfo) => {
         this.setState({
             product: {
               ...this.state.product,
-              [target]: value
+              [sourceInfo.event.target.name]: value
             }
           });
     }
@@ -56,23 +68,40 @@ class ProductForm extends React.Component {
       ProductsDataService.save(data).then(product => {
         // clearForm()
         // onSave && typeof onSave === 'function' && onSave(product);
-      })
+      });
+    }
+
+    returnDiv() {
+        return (
+            <div className="images">
+            {this.state.selectedImages && this.state.selectedImages.map((image, index) => {
+                return ([
+                    <div key={image} className="image">
+                        <img src={image} alt="" height="200" className="img-thumbnail" />
+                        <button onClick={() => this.setState({selectedImages: this.state.selectedImages.filter((e) => e !== image)})} >delete image</button>
+                        <p>{index + 1}</p>
+                    </div>
+                  ]);
+            })
+            }
+            </div>
+        );
     }
   
     render() {
       const { editMode } = this.props;
-      const pageTitle = editMode ? 'Edit Post' : 'Create Post';
+      const pageTitle = editMode ? 'Edit Product' : 'Create Product';
       const buttonTitle = editMode ? 'Update' : 'Post';
 
       return (
         <form onSubmit={this.handleSubmit}>
             <h2>{pageTitle}</h2>
-            <p>
+            <p style={{display: 'none'}}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
                 pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
                 hendrerit risus, sed porttitor quam.
             </p>
-            <p>ID:
+            <p style={{display: 'none'}}>ID:
                 <input 
                     type="text" 
                     className="form-control" 
@@ -162,8 +191,8 @@ class ProductForm extends React.Component {
                 defaultValue={this.state.product.base_price} 
                 thousandSeparator={true} 
                 prefix={'Rp. '} 
-                onValueChange={(values) => {
-                    this.handleValueChange('base_price', values.floatValue);
+                onValueChange={(values, sourceInfo) => {
+                    this.handleValueChange(values.floatValue, sourceInfo);
                 }}
                 className="form-control" 
                 name="base_price" />
@@ -173,8 +202,9 @@ class ProductForm extends React.Component {
                 defaultValue={this.state.product.publish_price} 
                 thousandSeparator={true} 
                 prefix={'Rp. '} 
-                onValueChange={(values) => {
-                    this.handleValueChange('publish_price', values.floatValue);
+                onValueChange={(values, sourceInfo) => {
+                    this.handleValueChange(values.floatValue, sourceInfo);
+                    // console.log(sourceInfo.event.target.name);
                 }}
                 className="form-control" 
                 name="publish_price" />
@@ -191,16 +221,27 @@ class ProductForm extends React.Component {
                 </input>
             </p>
             <p>Photo:
-                <input 
-                    type="text" 
-                    min="0"
-                    className="form-control" 
-                    name="photo"
-                    defaultValue={this.state.product.photo}
-                    onChange={this.handleChange}
-                >
-                </input>
+                <input type="file" name="images" onChange={this.onSelectFile} multiple accept="image/png, image/jpeg, image/webp, image/jpg" />
             </p>
+
+            {this.state.selectedImages.length > 0 && this.state.selectedImages.length > 10 ? 
+            <p className="error">You can't upload more than 10 images! <br />
+                    <span>please delete <b> {this.state.selectedImages.length - 10} </b> of them</span>
+            </p> : <button type="button" className="upload-btn" onClick={() => {console.log("UPLOAD IMAGES")}} >UPLOAD {this.state.selectedImages.length} IMAGE</button>}
+
+            <div className="images">
+            {this.state.selectedImages && this.state.selectedImages.map((image, index) => {
+                return ([
+                    <div key={image} className="image">
+                        <img src={image} alt="" height="200" className="img-thumbnail" />
+                        <button onClick={() => this.setState({selectedImages: this.state.selectedImages.filter((e) => e !== image)})} >delete image</button>
+                        <p>{index + 1}</p>
+                    </div>
+                  ]);
+            })
+            }
+            </div>
+
             <Button variant="az-primary btn-block" type="submit">{buttonTitle}</Button>
         </form>
       );
@@ -209,15 +250,12 @@ class ProductForm extends React.Component {
 
 ProductForm.propTypes = {
     editMode: PropTypes.bool,
-    // post: PropTypes.object
 }
 
 ProductForm.defaultProps = {
-    editMode: false,    // false: Create mode, true: Edit mode
-    // post: {
-    //     title: "",
-    //     body: ""
-    // }    // Pass defined Post object in create mode in order not to get undefined objects in 'defaultValue's of inputs.
+    editMode: false,
 }
 
-  export default ProductForm;
+
+
+export default ProductForm;

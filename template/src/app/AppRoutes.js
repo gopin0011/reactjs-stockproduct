@@ -5,6 +5,7 @@ const Dashboard = lazy(() => import('./dashboard/Dashboard'))
 
 const Signin = lazy(() => import('./general-pages/Signin'))
 const Signup = lazy(() => import('./general-pages/Signup'))
+const Invoices = lazy(() => import('./general-pages/Invoices'))
 
 const Buttons = lazy(() => import('./ui-elements/Buttons'))
 const Dropdowns = lazy(() => import('./ui-elements/Dropdowns'))
@@ -30,6 +31,7 @@ export class AppRoutes extends Component {
 
           <Route exact path="/general-pages/signin" component={ Signin } />
           <Route exact path="/general-pages/signup" component={ Signup } />
+          <Route exact path="/general-pages/invoices" component={ Invoices } />
 
           <Route exact path="/ui-elements/buttons" component={ Buttons } />
           <Route exact path="/ui-elements/dropdowns" component={ Dropdowns } />

@@ -71,23 +71,6 @@ class ProductForm extends React.Component {
       });
     }
 
-    returnDiv() {
-        return (
-            <div className="images">
-            {this.state.selectedImages && this.state.selectedImages.map((image, index) => {
-                return ([
-                    <div key={image} className="image">
-                        <img src={image} alt="" height="200" className="img-thumbnail" />
-                        <button onClick={() => this.setState({selectedImages: this.state.selectedImages.filter((e) => e !== image)})} >delete image</button>
-                        <p>{index + 1}</p>
-                    </div>
-                  ]);
-            })
-            }
-            </div>
-        );
-    }
-  
     render() {
       const { editMode } = this.props;
       const pageTitle = editMode ? 'Edit Product' : 'Create Product';
@@ -227,7 +210,8 @@ class ProductForm extends React.Component {
             {this.state.selectedImages.length > 0 && this.state.selectedImages.length > 10 ? 
             <p className="error">You can't upload more than 10 images! <br />
                     <span>please delete <b> {this.state.selectedImages.length - 10} </b> of them</span>
-            </p> : <button type="button" className="upload-btn" onClick={() => {console.log("UPLOAD IMAGES")}} >UPLOAD {this.state.selectedImages.length} IMAGE</button>}
+            </p> : this.state.selectedImages.length > 0 ? <button type="button" className="upload-btn" onClick={() => {console.log("UPLOAD IMAGES")}} >UPLOAD {this.state.selectedImages.length} IMAGE</button>:""
+            }
 
             <div className="images">
             {this.state.selectedImages && this.state.selectedImages.map((image, index) => {

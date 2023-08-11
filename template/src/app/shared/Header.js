@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, ButtonGroup } from "react-bootstrap";
 
 export class Header extends Component {
   closeMenu(e) {
@@ -63,14 +63,14 @@ export class Header extends Component {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Dropdown
+                <Dropdown
                     className={
                       this.isPathActive("/general-pages")
                         ? "nav-item active"
                         : "nav-item"
                     }
                   >
-                    <Dropdown.Toggle as={"a"} className="nav-link with-sub">
+                    <Dropdown.Toggle as={ButtonGroup} className="nav-link with-sub">
                       <i className="typcn typcn-document"></i> Pages
                     </Dropdown.Toggle>
                     <Dropdown.Menu className="az-menu-sub">
@@ -94,6 +94,16 @@ export class Header extends Component {
                       >
                         Sign Up
                       </Link>
+                      <Link
+                        to="/general-pages/invoices"
+                        className={
+                          this.isPathActive("/general-pages/invoices")
+                            ? "nav-link active"
+                            : "nav-link"
+                        }
+                      >
+                        Invoices
+                      </Link>
                     </Dropdown.Menu>
                   </Dropdown>
                 </li>
@@ -108,7 +118,7 @@ export class Header extends Component {
                         : "nav-item"
                     }
                   >
-                    <Dropdown.Toggle as={"a"} className="nav-link with-sub">
+                    <Dropdown.Toggle as={ButtonGroup} className="nav-link with-sub">
                       <i className="typcn typcn-book"></i> Components
                     </Dropdown.Toggle>
                     <Dropdown.Menu className="az-menu-sub az-menu-sub-mega">
@@ -223,7 +233,7 @@ export class Header extends Component {
                 </Link>
               </div>
               <Dropdown className="az-header-notification">
-                <Dropdown.Toggle as={"a"} className="new">
+                <Dropdown.Toggle as={"a"} href="#" className="new">
                   <i className="typcn typcn-bell"></i>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -308,7 +318,7 @@ export class Header extends Component {
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown className="az-profile-menu">
-                <Dropdown.Toggle as={"a"} className="az-img-user">
+                <Dropdown.Toggle as={"a"} href="#" className="az-img-user">
                   <img
                     src={require("../../assets/images/img1.jpg")}
                     alt=""
